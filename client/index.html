@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Back End Assessment</title>
+  </head>
+  <body class="container">
+    <button id="complimentButton">Get a compliment</button>
+
+    <button id ="fortuneButton">Recieve a Fortune</button>
+
+  
+
+    <h1>Inspiration Generator</h1>
+    <div id="quote-container">
+      <p id="quote-text">Click the button to generate an inspirational quote.</p>
+      <button id="quote-Button">Generate Quote</button>
+    </div>
+    <p id="quoteDisplay"></p>
+
+    <h1>Goal Tracker</h1>
+    <form id="goalForm">
+        <label for="goalInput">Goal:</label>
+        <input type="text" id="goalInput" name="goalInput">
+        <label for="deadlineInput">Deadline:</label>
+        <input type="date" id="deadlineInput" name="deadlineInput">
+        <button type="submit" id="addGoalButton">Add Goal</button>
+    </form>
+    <h2>My Goals</h2>
+    <ul id="goalList">
+    </ul>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+    
+  </body>
+</html>
