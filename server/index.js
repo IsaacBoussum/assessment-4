@@ -8,14 +8,14 @@ app.use(cors());
 app.use(express.json());
 
 
-const { getCompliment, getFortune, getQuote, addGoal, deleteGoal } = require('./controller');
+const { getCompliment, getFortune, getQuote, addGoal } = require('./controller');
 
 
 app.get('/api/compliment', getCompliment);
 app.get('/api/fortune', getFortune);
 app.get("/api/quote", getQuote);
 app.post('/api/goals', addGoal);
-app.delete('/api/goals/:id', deleteGoal);
+
 
 
 

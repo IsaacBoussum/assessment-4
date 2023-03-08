@@ -61,15 +61,6 @@ module.exports = {
         res.status(200).send(goals);
       },
     
-      completeGoal: (req, res) => {
-        const { id } = req.params;
-        const goal = goals.find((e) => e.id === parseInt(id));
-        if (!goal) {
-          return res.status(404).send(`Goal with id ${id} not found!`);
-        }
-        goal.completed = true;
-        res.status(200).send(goal);
-      },
-    
       
+    
 }

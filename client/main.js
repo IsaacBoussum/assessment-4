@@ -52,7 +52,11 @@ const submitGoal = (event) => {
             goalInput.value = "";
             deadlineInput.value = "";
         });
+
+    
+
 };
+
 
 
 
