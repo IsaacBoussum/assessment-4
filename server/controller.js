@@ -71,14 +71,5 @@ module.exports = {
         res.status(200).send(goal);
       },
     
-      deleteGoal: (req, res) => {
-        const { id } = req.params;
-        const index = goals.findIndex((e) => e.id === parseInt(id));
-        if (index === -1) {
-          return res.status(404).send(`Goal with id ${id} not found!`);
-        }
-        goals.splice(index, 1);
-        res.status(200).send(`Goal with id ${id} has been deleted!`);
-      },
-    
+      
 }
