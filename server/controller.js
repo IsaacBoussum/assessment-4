@@ -27,21 +27,6 @@ module.exports = {
         res.status(200).send(randomFortune);
     },
 
-    getQuote: (req, res) => {
-        const quotes = [
-            "You miss 100% of the shots you don't take. - Wayne Gretzky",
-            "I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison",
-            "Believe you can and you're halfway there. - Theodore Roosevelt",
-            "It does not matter how slowly you go as long as you do not stop. - Confucius",
-            "The only way to do great work is to love what you do. - Steve Jobs"
-        ];
-        
-        let randomIndex = Math.floor(Math.random() * quotes.length);
-        let randomQuote = quotes[randomIndex];
-
-        res.status(200).send(randomQuote);
-    },
-    
     addGoal: (req, res) => {
         const { goal, deadline } = req.body;
         if (!goal || !deadline) {
@@ -54,13 +39,33 @@ module.exports = {
           completed: false
         };
         goals.push(newGoal);
-        res.status(201).send(newGoal);
-      },
-    
-      getGoals: (req, res) => {
+        res.status(200).send(newGoal);
+    },
+
+    getGoals: (req, res) => {
         res.status(200).send(goals);
-      },
+    },
+
+    updateGoal: (req, res) => {
+      const { id } = req.params;
+      const index = goals.findIndex(goal => goal.id === parseInt(id));
+      if (index !== -1) {
+          goals[index].completed = true;
+          res.status(200).send(goals[index]);
+      } else {
+          res.sendStatus(404);
+      }
+  },
+
     
-      
-    
-}
+
+    deleteGoal: (req, res) => {
+        const id = parseInt(req.params.id);
+        const index = goals.findIndex(goal => goal.id === id);
+        if (index === -1) {
+          return res.status(404).send('Goal not found');
+        }
+        goals.splice(index, 1);
+        res.status(200).send(`Goal with id ${id} deleted successfully`);
+    }
+};

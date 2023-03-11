@@ -7,8 +7,7 @@ const goalForm = document.getElementById("goalForm");
 const goalInput = document.getElementById("goalInput");
 const deadlineInput = document.getElementById("deadlineInput");
 const goalList = document.getElementById("goalList");
-const quoteButton = document.getElementById("quote-Button");
-const quoteDisplay = document.getElementById("quoteDisplay");
+
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
@@ -26,13 +25,7 @@ const getFortune = () => {
     });
 };
 
-const getQuote = () => {
-    axios.get("http://localhost:4000/api/quote/")
-        .then(res => {
-            const data = res.data;
-            quoteDisplay.textContent = data;
-    });
-};
+
 
 const submitGoal = (event) => {
     event.preventDefault();
@@ -49,12 +42,40 @@ const submitGoal = (event) => {
             listItem.innerText = `${newGoal.goal}  ${newGoal.deadline}`;
             goalList.appendChild(listItem);
 
+            const completeBtn = document.createElement("button");
+            completeBtn.innerText = "Complete";
+            completeBtn.addEventListener("click", () => {
+              axios
+                .put(`http://localhost:4000/api/goals/${newGoal.id}`, { completed: true })
+                .then(() => {
+                  listItem.style.color = "green";
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+            });
+           
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete";
+            deleteButton.addEventListener("click", () => {
+                axios.delete(`http://localhost:4000/api/goals/${newGoal.id}`)
+                    .then(() => {
+                        listItem.remove();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
+            
+            
+            listItem.appendChild(completeBtn);
+            listItem.appendChild(deleteButton);
+            goalList.appendChild(listItem);
+
             goalInput.value = "";
             deadlineInput.value = "";
         });
-
-    
-
 };
 
 
@@ -67,4 +88,3 @@ const submitGoal = (event) => {
 goalForm.addEventListener('submit', submitGoal)
 complimentBtn.addEventListener('click', getCompliment);
 fortuneBtn.addEventListener("click", getFortune);
-quoteButton.addEventListener('click', getQuote);
